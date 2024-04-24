@@ -1,12 +1,14 @@
 package training
 
 type Mural struct {
-	answers []string
+	answers     []string
+	SearchSites []string
 }
 
 func NewMural() *Mural {
 	return &Mural{
-		answers: make([]string, 0, 20),
+		answers:     make([]string, 0, 20),
+		SearchSites: []string{"https://developers.mural.co/public/docs/getting-started", "https://developers.mural.co/public/reference/intro"},
 	}
 }
 

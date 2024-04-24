@@ -7,31 +7,27 @@ import (
 	"os"
 )
 
+const (
+	SYSTEM_MSG_TMPL = "In this conversation, you provide information about the API of a provider. The provider is called %s. All information about %[1]s you can get from this site(s): %s"
+)
+
 func main() {
-	ans, names := providers.Init()
+	ans, names, sites := providers.Init()
 	file, err := os.Create("providerOpenAI.jsonl")
 	if err != nil {
-		panic("File create" + err.Error())
+		panic("File create:" + err.Error())
 	}
 	defer file.Close()
 	qest := questions.New()
 
 	for i, prov := range ans {
-		fmt.Fprintf(file, `{"messages":[{"role": "system","text": "In this conversation, you provide information about the API of a provider. The provider is called %s"},`, names[i])
+		systemMsg := fmt.Sprintf(SYSTEM_MSG_TMPL, names[i], sites[i])
 		for j := range prov {
 			questionForProvider := fmt.Sprintf(qest[j], names[i])
-			fmt.Fprintf(file, `{"role": "user","text": "%s"},`, questionForProvider)
-			fmt.Fprintf(file, `{"role": "assistant","text": "%s"}`, prov[j])
-			if j != len(prov)-1 {
-				fmt.Fprint(file, `,`)
-			}
+			fmt.Fprintf(file, `{"messages":[{"role": "system","content": "%s"}, `, systemMsg)
+			fmt.Fprintf(file, `{"role": "user","content": "%s"}, `, questionForProvider)
+			fmt.Fprintf(file, `{"role": "assistant","content": "%s"} `, prov[j])
+			fmt.Fprint(file, "]}\n")
 		}
-		fmt.Fprint(file, "]}\n")
-	}
-
-	for i := 0; i < 10-len(names); i++ {
-		fmt.Fprintf(file, `{"messages":[{"role": "user","text": "bye"},{"role": "assistant","text": "bye"}]}`)
-		fmt.Fprintln(file)
-
 	}
 }
