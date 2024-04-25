@@ -2,14 +2,18 @@ package training
 
 type RingCentral struct {
 	answers     []string
-	SearchSites []string
+	searchSites []string
 }
 
 func NewRingCentral() *RingCentral {
 	return &RingCentral{
 		answers:     make([]string, 0, 20),
-		SearchSites: []string{"https://developers.ringcentral.com/", "https://developers.ringcentral.com/api-reference", "https://developers.ringcentral.com/guide"},
+		searchSites: []string{"https://developers.ringcentral.com/", "https://developers.ringcentral.com/api-reference", "https://developers.ringcentral.com/guide"},
 	}
+}
+
+func (r *RingCentral) GetSearchSites() []string {
+	return r.searchSites
 }
 
 func (r *RingCentral) GetName() string {

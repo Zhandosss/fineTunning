@@ -2,14 +2,18 @@ package training
 
 type Klaviyo struct {
 	answers     []string
-	SearchSites []string
+	searchSites []string
 }
 
 func NewKlaviyo() *Klaviyo {
 	return &Klaviyo{
 		answers:     make([]string, 0, 20),
-		SearchSites: []string{"https://developers.klaviyo.com/en", "https://developers.klaviyo.com/en/docs/changelog_", "https://developers.klaviyo.com/en/reference"},
+		searchSites: []string{"https://developers.klaviyo.com/en", "https://developers.klaviyo.com/en/docs/changelog_", "https://developers.klaviyo.com/en/reference"},
 	}
+}
+
+func (k *Klaviyo) GetSearchSites() []string {
+	return k.searchSites
 }
 
 func (k *Klaviyo) GetName() string {

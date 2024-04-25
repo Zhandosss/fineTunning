@@ -2,14 +2,18 @@ package training
 
 type AdobeSign struct {
 	answers     []string
-	SearchSites []string
+	searchSites []string
 }
 
 func NewAdobeSign() *AdobeSign {
 	return &AdobeSign{
 		answers:     make([]string, 0, 20),
-		SearchSites: []string{"https://opensource.adobe.com/acrobat-sign/", "https://secure.na1.adobesign.com/public/docs/restapi/v6"},
+		searchSites: []string{"https://opensource.adobe.com/acrobat-sign/", "https://secure.na1.adobesign.com/public/docs/restapi/v6"},
 	}
+}
+
+func (a *AdobeSign) GetSearchSites() []string {
+	return a.searchSites
 }
 
 func (a *AdobeSign) GetName() string {

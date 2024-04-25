@@ -2,14 +2,18 @@ package training
 
 type Wrike struct {
 	answers     []string
-	SearchSites []string
+	searchSites []string
 }
 
 func NewWrike() *Wrike {
 	return &Wrike{
 		answers:     make([]string, 0, 20),
-		SearchSites: []string{"https://developers.wrike.com/"},
+		searchSites: []string{"https://developers.wrike.com/"},
 	}
+}
+
+func (w *Wrike) GetSearchSites() []string {
+	return w.searchSites
 }
 
 func (w *Wrike) GetName() string {
